@@ -33,8 +33,8 @@ class Player(object):
         self.sprite_list = sprite_list
         self.pos_x = x
         self.pos_y = y
-        self.speed_x = x
-        self.speed_y = y
+        self.speed_x = 0
+        self.speed_y = 0
         self.facing = "down"
         self.inventory = {}
 
@@ -71,8 +71,7 @@ class Player(object):
         self.pos_x += self.speed_x
 
     def check_collision(self, this_map):
-        if not (not (this_map.tiles[self.pos_x][self.pos_y] in this_map.wall_values) and not (
-                    this_map.entity_pos[self.pos_x][self.pos_y] is not 0)):
+        if this_map.tiles[self.pos_x][self.pos_y] in this_map.wall_values:
             if self.facing == "left":
                 self.stop()
                 self.pos_x += 1

@@ -5,11 +5,11 @@ import TilePy
 game = TilePy.Game()
 
 current_map = TilePy.Map("test",
-                         [[0, 0, 0, 0, 0],
-                          [0, 0, 0, 1, 0],
-                          [0, 0, 0, 0, 0],
-                          [0, 0, 0, 0, 0],
-                          [0, 0, 0, 0, 0]],
+                         [[1, 1, 1, 1, 1],
+                          [1, 0, 0, 0, 1],
+                          [1, 0, 0, 0, 1],
+                          [1, 0, 0, 0, 1],
+                          [1, 1, 1, 1, 1]],
                          [1],
                          ['wood_floor.png', 'wood_wall.png'],
                          5,
@@ -18,10 +18,10 @@ current_map = TilePy.Map("test",
                          [[0, 0, 0, 0, 0],
                           [0, 0, 0, 0, 0],
                           [0, 0, 0, 0, 0],
-                          [0, 1, 0, 0, 0],
+                          [0, 0, 0, 0, 0],
                           [0, 0, 0, 0, 0]])
 
-player = TilePy.Player(["trainer_down.png", "trainer_up.png", "trainer_right.png", "trainer_left.png"], 0, 0)
+player = TilePy.Player(["trainer_down.png", "trainer_up.png", "trainer_right.png", "trainer_left.png"], 3, 3)
 
 pygame.init()
 
