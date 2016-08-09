@@ -6,6 +6,12 @@
 
 import pygame
 
+import romulus_tools
+
+
+# Don't use this - it's easier and better practice to just remember "32".
+# globals()['tile_size'] = 32
+
 
 class InvalidMapFileException(Exception):
     def __init__(self, message):
@@ -26,9 +32,7 @@ def read_map_file(filename):
     f.close()
     for x in list_1:
         x.split(',')
-        for y in x:
-            if y == "\n":
-                x.remove(x[x.index(y)])
+        romulus_tools.remove_newlines(x)
         if iterations > 0:
             inr_len = len(x)
         else:
@@ -74,6 +78,7 @@ class Game(object):
         self.game_log("Ready", 0)
 
     def game_log(self, msg, level):
+        level_name = ""
         if level == 0:
             level_name = "notice"
         if level == 1:
@@ -96,6 +101,7 @@ class Player(object):
         self.inventory = {}
 
     def draw(self, screen, this_map):
+        player = None
         self.check_pos()
         self.check_collision(this_map)
         if self.facing == "down":
@@ -194,11 +200,13 @@ class NPC(object):
 
 
 class Item(NPC):
+    # TODO Add using and picking up items.
     def __init__(self, name, done, sprite_list, x, y):
         super(Item, self).__init__(name, done, sprite_list, x, y)
 
 
 class Projectile(NPC):
+    # TODO This needs specialized collision detection.
     def __init__(self, name, done, sprite_list, x, y):
         super(Projectile, self).__init__(name, done, sprite_list, x, y)
 
