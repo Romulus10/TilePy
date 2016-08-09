@@ -2,7 +2,7 @@ import pygame
 
 import TilePy
 
-game = TilePy.Game()
+game = TilePy.begin("Test")
 
 current_map = TilePy.Map("test",
                          [[1, 1, 1, 1, 1],
@@ -14,12 +14,7 @@ current_map = TilePy.Map("test",
                          ['wood_floor.png', 'wood_wall.png'],
                          5,
                          5,
-                         [TilePy.NPC("rock", "item", False, ['test.png'])],
-                         [[0, 0, 0, 0, 0],
-                          [0, 0, 0, 0, 0],
-                          [0, 0, 0, 0, 0],
-                          [0, 0, 0, 0, 0],
-                          [0, 0, 0, 0, 0]])
+                         [TilePy.NPC("rock", False, ['test.png'], 2, 2)])
 
 player = TilePy.Player(["trainer_down.png", "trainer_up.png", "trainer_right.png", "trainer_left.png"], 3, 3)
 
@@ -28,6 +23,7 @@ pygame.init()
 screen = pygame.display.set_mode((700, 500))
 clock = pygame.time.Clock()
 
+game.ready()
 done = False
 
 while not done:
@@ -41,7 +37,7 @@ while not done:
 
         if event.type == pygame.QUIT:
             done = True
-            print("Quitting game.")
+            game.game_log("Quitting game.", 0)
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
@@ -62,7 +58,7 @@ while not done:
                 player.move("right")
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 player.move("left")
-            if event.key == pygame.K_a:
+            if event.key == pygame.K_x:
                 player.check_for_interaction(current_map)
 
     pygame.display.flip()
