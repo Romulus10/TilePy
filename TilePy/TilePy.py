@@ -2,15 +2,52 @@
 # Tile sizes are ALWAYS 32x32.
 # Currently running least awkwardly at 10 fps.
 
-# TODO Projectiles
+# TODO System for saving and loading game data.
+# TODO System for easy game_init scripts.
+# FIXME Performance is probably utterly atrocious.
+# FIXME Dancing Off the Map bug - Reproduce by running test.py and rapidly and repeatedly pressing different arrow keys.
+# DONE Projectiles
 
 import pygame
 
 import romulus_tools
 
-
 # Don't use this - it's easier and better practice to just remember "32".
 # globals()['tile_size'] = 32
+
+colors = {
+    'white': (255, 255, 255),
+    'black': (0, 0, 0),
+    'red': (255, 0, 0),
+    'green': (0, 255, 0),
+    'blue': (0, 0, 255)
+}
+
+
+class DialogWindow(object):
+    # TODO Test dialog windows.
+    # TODO Check string overflow.
+    # TODO Set up multiple dialog boxes to one event.
+    def __init__(self, text):
+        self.visible = False
+        self.corner_pos_x = 16
+        self.corner_pos_y = 10 * 32
+        self.length = 668
+        self.width = 400
+        self.text = text
+        self.font = pygame.font.Font(None, 20)
+
+    def draw(self, screen):
+        if self.visible:
+            pygame.draw.rect(screen, colors['white'], [self.corner_pos_x, self.corner_pos_y, self.length, self.width])
+            screen.blit(self.font.render(self.text, True, colors['black']),
+                        [self.corner_pos_x + 16, self.corner_pos_y + 16])
+
+    def show(self):
+        self.visible = True
+
+    def hide(self):
+        self.visible = False
 
 
 class InvalidMapFileException(Exception):
@@ -49,6 +86,7 @@ def begin(name):
 
 
 class Map(object):
+    # TODO Handle moving between maps.
     def __init__(self, name, tiles, wall_values, list_tiles, x, y, entities):
         self.name = name
         self.tiles = tiles
@@ -71,6 +109,7 @@ class Game(object):
     def __init__(self, name):
         self.name = name
         self.FPS = 10
+        self.dialog_window_stack = []
         print("Made with TilePy by Romulus10")
         print("TilePy is loading...")
 
@@ -78,6 +117,7 @@ class Game(object):
         self.game_log("Ready", 0)
 
     def game_log(self, msg, level):
+        msg = str(msg)
         level_name = ""
         if level == 0:
             level_name = "notice"
@@ -98,7 +138,7 @@ class Player(object):
         self.speed_x = 0
         self.speed_y = 0
         self.facing = "down"
-        self.inventory = {}
+        self.inventory = []
 
     def draw(self, screen, this_map):
         player = None
@@ -149,7 +189,7 @@ class Player(object):
                 self.stop()
                 self.pos_y -= 1
         for x in this_map.entities:
-            if self.pos_x == x.pos_x and self.pos_y == x.pos_y:
+            if (self.pos_x == x.pos_x and self.pos_y == x.pos_y) and not x.done:
                 if self.facing == "left":
                     self.stop()
                     self.pos_x += 1
@@ -168,17 +208,21 @@ class Player(object):
         # DONE Rewrite check_for_interaction.
         for x in this_map.entities:
             if x.pos_x == self.pos_x - 1 and self.facing == "left":
-                x.interact_with()
+                x.interact_with(self)
             if x.pos_x == self.pos_x + 1 and self.facing == "right":
-                x.interact_with()
+                x.interact_with(self)
             if x.pos_y == self.pos_y - 1 and self.facing == "up":
-                x.interact_with()
+                x.interact_with(self)
             if x.pos_y == self.pos_y + 1 and self.facing == "down":
-                x.interact_with()
+                x.interact_with(self)
+
+    def get_inventory(self):
+        print(self.inventory)
 
 
 class NPC(object):
     # TODO NPC AI Movement
+    # TODO Determine what dialog box to display when self.done
     def __init__(self, name, done, sprite_list, x, y):
         self.name = name
         self.done = done
@@ -186,7 +230,8 @@ class NPC(object):
         self.pos_x = x
         self.pos_y = y
 
-    def interact_with(self):
+    def interact_with(self, player):
+        # DONE How do I get dialog to work with NPCs?
         # TODO NPC Interactions
         globals()['game'].game_log("interacting with " + self.name, 0)
 
@@ -200,9 +245,25 @@ class NPC(object):
 
 
 class Item(NPC):
-    # TODO Add using and picking up items.
-    def __init__(self, name, done, sprite_list, x, y):
+    # TODO Add using
+    # DONE and picking up items.
+    def __init__(self, name, done, sprite_list, x, y, msg):
         super(Item, self).__init__(name, done, sprite_list, x, y)
+        self.text = msg
+
+    def interact_with(self, player):
+        globals()['game'].game_log(globals()['game'].dialog_window_stack, 1)
+        globals()['game'].game_log("added to inventory: " + self.name, 0)
+        var = DialogWindow(self.text)
+        var.show()
+        globals()['game'].dialog_window_stack.append(var)
+        self.done = True
+        player.inventory.append(self)
+
+    def draw(self, screen):
+        if not self.done:
+            player = pygame.image.load(self.sprite_list[0])
+            screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
 
 class Projectile(NPC):
@@ -210,6 +271,12 @@ class Projectile(NPC):
     def __init__(self, name, done, sprite_list, x, y):
         super(Projectile, self).__init__(name, done, sprite_list, x, y)
 
-    def interact_with(self):
+    def interact_with(self, player):
         # TODO Redesign for projectiles.
+        pass
+
+
+class StatsEnabledObject(object):
+    # For use in turn-based combat. I think I'll use that as the preferred combat system.
+    def __init__(self):
         pass
