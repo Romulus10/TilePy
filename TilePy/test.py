@@ -16,7 +16,7 @@ current_map = TilePy.Map("test",
                          ['wood_floor.png', 'wood_wall.png'],
                          5,
                          5,
-                         [TilePy.Item("rock", False, ['test.png'], 2, 2, "I am a rock!")])
+                         [TilePy.Item("rock", False, ['test.png'], 2, 2, "You found a rock!")])
 
 player = TilePy.Player(["trainer_down.png", "trainer_up.png", "trainer_right.png", "trainer_left.png"], 3, 3)
 
@@ -29,9 +29,6 @@ game.ready()
 done = False
 
 test = []
-
-game.dialog_window_stack.append(TilePy.DialogWindow("Hello, world!"))
-game.game_log(game.dialog_window_stack, 1)
 
 while not done:
 
@@ -74,14 +71,10 @@ while not done:
             if event.key == pygame.K_i:
                 player.get_inventory()
             if event.key == pygame.K_x:
-                if len(game.dialog_window_stack) > 0:
-                    if game.dialog_window_stack[len(game.dialog_window_stack) - 1].visible:
-                        game.dialog_window_stack[len(game.dialog_window_stack) - 1].hide()
-                        game.dialog_window_stack.pop()
+                if TilePy.check_for_open_window_and_close(game):
+                    pass
                 else:
                     player.check_for_interaction(current_map)
-            if event.key == pygame.K_t:
-                game.dialog_window_stack[len(game.dialog_window_stack) - 1].show()
             game.game_log(game.dialog_window_stack, 1)
 
     pygame.display.flip()

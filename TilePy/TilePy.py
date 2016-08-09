@@ -8,6 +8,8 @@
 # FIXME Dancing Off the Map bug - Reproduce by running test.py and rapidly and repeatedly pressing different arrow keys.
 # DONE Projectiles
 
+import sys
+
 import pygame
 
 import romulus_tools
@@ -22,6 +24,16 @@ colors = {
     'green': (0, 255, 0),
     'blue': (0, 0, 255)
 }
+
+
+def check_for_open_window_and_close(game):
+    if len(game.dialog_window_stack) > 0:
+        if game.dialog_window_stack[len(game.dialog_window_stack) - 1].visible:
+            game.dialog_window_stack[len(game.dialog_window_stack) - 1].hide()
+            game.dialog_window_stack.pop()
+            return True
+        return False
+    return False
 
 
 class DialogWindow(object):
@@ -120,19 +132,27 @@ class Game(object):
         msg = str(msg)
         level_name = ""
         if level == 0:
+            # This level should be used only by the engine.
             level_name = "notice"
         if level == 1:
+            # This level should be used when developing a game or extending the engine.
             level_name = "debug"
         if level == 2:
+            # This level should be used to warn of unexpected activity.
             level_name = "warn"
         if level == 3:
-            level_name = "error, continuing"
+            # This level should be used *only* when a game-crashing bug is being fixed.
+            level_name = "error"
         print(self.name + " " + level_name + ": " + msg)
+        if level == 3:
+            sys.exit(1)
 
 
 class Player(object):
     def __init__(self, sprite_list, x, y):
         self.sprite_list = sprite_list
+        self.original_pos_x = x
+        self.original_pos_y = y
         self.pos_x = x
         self.pos_y = y
         self.speed_x = 0
@@ -175,21 +195,8 @@ class Player(object):
 
     def check_collision(self, this_map):
         # DONE Check collision with NPC.
-        if this_map.tiles[self.pos_x][self.pos_y] in this_map.wall_values:
-            if self.facing == "left":
-                self.stop()
-                self.pos_x += 1
-            if self.facing == "right":
-                self.stop()
-                self.pos_x -= 1
-            if self.facing == "up":
-                self.stop()
-                self.pos_y += 1
-            if self.facing == "down":
-                self.stop()
-                self.pos_y -= 1
-        for x in this_map.entities:
-            if (self.pos_x == x.pos_x and self.pos_y == x.pos_y) and not x.done:
+        try:
+            if this_map.tiles[self.pos_x][self.pos_y] in this_map.wall_values:
                 if self.facing == "left":
                     self.stop()
                     self.pos_x += 1
@@ -202,6 +209,25 @@ class Player(object):
                 if self.facing == "down":
                     self.stop()
                     self.pos_y -= 1
+            for x in this_map.entities:
+                if (self.pos_x == x.pos_x and self.pos_y == x.pos_y) and not x.done:
+                    if self.facing == "left":
+                        self.stop()
+                        self.pos_x += 1
+                    if self.facing == "right":
+                        self.stop()
+                        self.pos_x -= 1
+                    if self.facing == "up":
+                        self.stop()
+                        self.pos_y += 1
+                    if self.facing == "down":
+                        self.stop()
+                        self.pos_y -= 1
+        except IndexError:
+            globals()['game'].game_log("Outside the map. Repositioning.", 2)
+            # HACK Prevents the player from falling out of the map. Not very graceful - should be fixed ASAP.
+            self.pos_x = self.original_pos_x
+            self.pos_y = self.original_pos_y
 
     def check_for_interaction(self, this_map):
         # DONE Test check_for_interaction
