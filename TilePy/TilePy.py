@@ -5,7 +5,7 @@
 # TODO System for saving and loading game data.
 # TODO System for easy game_init scripts.
 # FIXME Performance is probably utterly atrocious.
-# FIXME Dancing Off the Map bug - Reproduce by running test.py and rapidly and repeatedly pressing different arrow keys.
+# DONE Dancing Off the Map bug - Reproduce by running test.py and rapidly and repeatedly pressing different arrow keys.
 # DONE Projectiles
 
 import sys
@@ -47,7 +47,7 @@ class DialogWindow(object):
         self.length = 668
         self.width = 400
         self.text = text
-        self.font = pygame.font.Font(None, 20)
+        self.font = pygame.font.Font(None, 40)
 
     def draw(self, screen):
         if self.visible:
@@ -118,6 +118,9 @@ class Map(object):
 
 
 class Game(object):
+    """
+    Implements an in-memory object for saving, loading, and logging games built with TilePy.
+    """
     def __init__(self, name):
         self.name = name
         self.FPS = 10
@@ -146,6 +149,14 @@ class Game(object):
         print(self.name + " " + level_name + ": " + msg)
         if level == 3:
             sys.exit(1)
+
+    def save_game(self):
+        # TODO Implement
+        pass
+
+    def load_game(self):
+        # TODO Implement
+        pass
 
 
 class Player(object):
@@ -225,7 +236,7 @@ class Player(object):
                         self.pos_y -= 1
         except IndexError:
             globals()['game'].game_log("Outside the map. Repositioning.", 2)
-            # HACK Prevents the player from falling out of the map. Not very graceful - should be fixed ASAP.
+            # HACK Addresses the Dancing Off the Map bug. Not very graceful - should be fixed ASAP.
             self.pos_x = self.original_pos_x
             self.pos_y = self.original_pos_y
 
@@ -243,7 +254,7 @@ class Player(object):
                 x.interact_with(self)
 
     def get_inventory(self):
-        print(self.inventory)
+        globals()['game'].game_log("Player inventory: " + str(self.inventory), 0)
 
 
 class NPC(object):
@@ -270,8 +281,31 @@ class NPC(object):
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
 
+class Actor(NPC):
+    """
+    Implements a human-type NPC that the player can talk to.
+    """
+
+    def __init__(self, name, done, sprite_list, x, y):
+        super(Actor, self).__init__(name, done, sprite_list, x, y)
+
+
+class ShopKeep(NPC):
+    """
+    Implements an NPC entity with an inventory that the player can trade with.
+    """
+
+    def __init__(self, name, done, sprite_list, x, y):
+        super(ShopKeep, self).__init__(name, done, sprite_list, x, y)
+
+
 class Item(NPC):
-    # TODO Add using
+    """
+    To add items to a game using the TilePy library, they should be new classes that extend the Item class.
+    They should however ONLY override the "use" method. All other methods should work fine.
+    """
+
+    # DONE Add using
     # DONE and picking up items.
     def __init__(self, name, done, sprite_list, x, y, msg):
         super(Item, self).__init__(name, done, sprite_list, x, y)
@@ -291,18 +325,28 @@ class Item(NPC):
             player = pygame.image.load(self.sprite_list[0])
             screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
-
-class Projectile(NPC):
-    # TODO This needs specialized collision detection.
-    def __init__(self, name, done, sprite_list, x, y):
-        super(Projectile, self).__init__(name, done, sprite_list, x, y)
-
-    def interact_with(self, player):
-        # TODO Redesign for projectiles.
+    def use(self):
+        """
+        This is a stub to be inherited by game-specific Item objects.
+        :return:
+        """
         pass
+
+    # If turn-based combat is the preferred action method of the library, this really isn't necessary.
+    # IGNORE class Projectile(NPC):
+    # IGNORE This needs specialized collision detection.
+    # def __init__(self, name, done, sprite_list, x, y):
+    # super(Projectile, self).__init__(name, done, sprite_list, x, y)
+
+    # def interact_with(self, player):
+    # IGNORE Redesign for projectiles.
+    # pass
 
 
 class StatsEnabledObject(object):
+    """
+    Creates a Character object which can be used in turn-based combat or in tracking character stats.
+    """
     # For use in turn-based combat. I think I'll use that as the preferred combat system.
     def __init__(self):
         pass
