@@ -36,10 +36,19 @@ def check_for_open_window_and_close(game):
     return False
 
 
+class MapGate(object):
+    def __init__(self, pos_x, pos_y, on_map, to_map):
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.on_map = on_map
+        self.to_map = to_map
+
+
 class DialogWindow(object):
     # TODO Test dialog windows.
     # TODO Check string overflow.
-    # TODO Set up multiple dialog boxes to one event.
+    # DONE Set up multiple dialog boxes to one event.
+    #   We just push multiple DialogWindows to the queue in reverse order.
     def __init__(self, text):
         self.visible = False
         self.corner_pos_x = 16
@@ -121,6 +130,7 @@ class Game(object):
     """
     Implements an in-memory object for saving, loading, and logging games built with TilePy.
     """
+
     def __init__(self, name):
         self.name = name
         self.FPS = 10
@@ -310,6 +320,7 @@ class Item(NPC):
     def __init__(self, name, done, sprite_list, x, y, msg):
         super(Item, self).__init__(name, done, sprite_list, x, y)
         self.text = msg
+        self.in_inventory = False
 
     def interact_with(self, player):
         globals()['game'].game_log(globals()['game'].dialog_window_stack, 1)
@@ -318,6 +329,7 @@ class Item(NPC):
         var.show()
         globals()['game'].dialog_window_stack.append(var)
         self.done = True
+        self.in_inventory = True
         player.inventory.append(self)
 
     def draw(self, screen):
@@ -330,23 +342,27 @@ class Item(NPC):
         This is a stub to be inherited by game-specific Item objects.
         :return:
         """
-        pass
+        if self.in_inventory:
+            globals()['game'].game_log("Using " + self.name, 0)
+        else:
+            globals()['game'].game_log("Item not in player inventory " + self.name, 0)
 
-    # If turn-based combat is the preferred action method of the library, this really isn't necessary.
-    # IGNORE class Projectile(NPC):
-    # IGNORE This needs specialized collision detection.
-    # def __init__(self, name, done, sprite_list, x, y):
-    # super(Projectile, self).__init__(name, done, sprite_list, x, y)
+            # If turn-based combat is the preferred action method of the library, this really isn't necessary.
+            # IGNORE class Projectile(NPC):
+            # IGNORE This needs specialized collision detection.
+            # def __init__(self, name, done, sprite_list, x, y):
+            # super(Projectile, self).__init__(name, done, sprite_list, x, y)
 
-    # def interact_with(self, player):
-    # IGNORE Redesign for projectiles.
-    # pass
+            # def interact_with(self, player):
+            # IGNORE Redesign for projectiles.
+            # pass
 
 
 class StatsEnabledObject(object):
     """
     Creates a Character object which can be used in turn-based combat or in tracking character stats.
     """
+
     # For use in turn-based combat. I think I'll use that as the preferred combat system.
     def __init__(self):
         pass
