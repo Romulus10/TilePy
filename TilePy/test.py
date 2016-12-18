@@ -16,7 +16,7 @@ current_map = TilePy.Map("test",
                          ['wood_floor.png', 'wood_wall.png'],
                          5,
                          5,
-                         [TilePy.Item("rock", False, ['test.png'], 2, 2, "You found a rock!")])
+                         [TilePy.Item("rock", False, ['test.png'], 2, 2, "I got a rock...")])
 
 player = TilePy.Player(["trainer_down.png", "trainer_up.png", "trainer_right.png", "trainer_left.png"], 3, 3)
 
