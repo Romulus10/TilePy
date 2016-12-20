@@ -26,6 +26,7 @@ colors = {
 
 game = object
 
+
 def check_for_open_window_and_close(game):
     if len(game.dialog_window_stack) > 0:
         if game.dialog_window_stack[len(game.dialog_window_stack) - 1].visible:

@@ -27,16 +27,6 @@ class NPC(object):
         player = pygame.image.load(".." + self.sprite_list[0])
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
-    def path_act(self, direction):
-        if direction is "up":
-            self.pos_y += 1
-        if direction is "down":
-            self.pos_y -= 1
-        if direction is "right":
-            self.pos_x += 1
-        if direction is "left":
-            self.pos_x -= 1
-
 
 class Actor(NPC):
     """
