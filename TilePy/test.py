@@ -18,7 +18,7 @@ current_map = TilePy.Map("test",
                          5,
                          [TilePy.Item("rock", False, ['test.png'], 2, 2, "I got a rock...")])
 
-player = TilePy.Player(["trainer_down.png", "trainer_up.png", "trainer_right.png", "trainer_left.png"], 3, 3)
+player = TilePy.Player(["arrow_down.png", "arrow_up.png", "arrow_right.png", "arrow_left.png"], 3, 3)
 
 pygame.init()
 
