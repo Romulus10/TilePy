@@ -2,7 +2,7 @@
 # Tile sizes are ALWAYS 32x32.
 # Currently running least awkwardly at 10 fps.
 
-# TODO System for saving and loading game data.
+# TODO System for saving and loading game_object data.
 # TODO System for easy game_init scripts - Document the module
 # FIXME Performance is probably utterly atrocious.
 # DONE Dancing Off the Map bug - Reproduce by running test.py and rapidly and repeatedly pressing different arrow keys.
@@ -24,7 +24,7 @@ colors = {
     'blue': (0, 0, 255)
 }
 
-game = object
+game_object = object
 
 
 def check_for_open_window_and_close(game):
@@ -62,5 +62,5 @@ def read_map_file(filename):
 
 
 def begin(name):
-    globals()['game'] = Game.Game(name)
-    return globals()['game']
+    globals()['game_object'] = Game.Game(name)
+    return globals()['game_object']

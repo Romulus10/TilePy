@@ -23,13 +23,13 @@ class Game(object):
             # This level should be used only by the engine.
             level_name = "notice"
         if level == 1:
-            # This level should be used when developing a game or extending the engine.
+            # This level should be used when developing a game_object or extending the engine.
             level_name = "debug"
         if level == 2:
             # This level should be used to warn of unexpected activity.
             level_name = "warn"
         if level == 3:
-            # This level should be used *only* when a game-crashing bug is being fixed.
+            # This level should be used *only* when a game_object-crashing bug is being fixed.
             level_name = "error"
         print(self.name + " " + level_name + ": " + msg)
         if level == 3:

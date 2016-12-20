@@ -53,7 +53,7 @@ while not done:
 
         if event.type == pygame.QUIT:
             done = True
-            game.game_log("Quitting game.", 0)
+            game.game_log("Quitting game_object.", 0)
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:

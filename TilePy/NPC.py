@@ -17,7 +17,7 @@ class NPC(object):
     def interact_with(self, player):
         # DONE How do I get dialog to work with NPCs?
         # TODO NPC Interactions
-        TilePy.game.game_log("interacting with " + self.name, 0)
+        TilePy.game_object.game_log("interacting with " + self.name, 0)
 
     def draw(self, screen):
         # TODO Handle moving NPCs.
@@ -65,7 +65,7 @@ class Actor(NPC):
         for x in self.text:
             var = DialogWindow(x)
             var.show()
-            TilePy.game.dialog_window_stack.append(var)
+            TilePy.game_object.dialog_window_stack.append(var)
 
 
 class ShopKeep(NPC):
@@ -79,7 +79,7 @@ class ShopKeep(NPC):
 
 class Item(NPC):
     """
-    To add items to a game using the TilePy library, they should be new classes that extend the Item class.
+    To add items to a game_object using the TilePy library, they should be new classes that extend the Item class.
     They should however ONLY override the "use" method. All other methods should work fine.
     """
 
@@ -92,11 +92,11 @@ class Item(NPC):
 
     def interact_with(self, player):
         if not self.done:
-            TilePy.game.game_log(TilePy.game.dialog_window_stack, 1)
-            TilePy.game.game_log("added to inventory: " + self.name, 0)
+            TilePy.game_object.game_log(TilePy.game_object.dialog_window_stack, 1)
+            TilePy.game_object.game_log("added to inventory: " + self.name, 0)
             var = DialogWindow(self.text)
             var.show()
-            TilePy.game.dialog_window_stack.append(var)
+            TilePy.game_object.dialog_window_stack.append(var)
             self.done = True
             self.in_inventory = True
             player.inventory.append(self)
@@ -108,13 +108,13 @@ class Item(NPC):
 
     def use(self):
         """
-        This is a stub to be inherited by game-specific Item objects.
+        This is a stub to be inherited by game_object-specific Item objects.
         :return:
         """
         if self.in_inventory:
-            TilePy.game.game_log("Using " + self.name, 0)
+            TilePy.game_object.game_log("Using " + self.name, 0)
         else:
-            TilePy.game.game_log("Item not in player inventory " + self.name, 0)
+            TilePy.game_object.game_log("Item not in player inventory " + self.name, 0)
 
             # If turn-based combat is the preferred action method of the library, this really isn't necessary.
             # IGNORE class Projectile(NPC):

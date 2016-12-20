@@ -79,7 +79,7 @@ class Player(object):
                         self.stop()
                         self.pos_y -= 1
         except IndexError:
-            TilePy.game.game_log("Outside the map. Repositioning.", 2)
+            TilePy.game_object.game_log("Outside the map. Repositioning.", 2)
             # HACK Addresses the Dancing Off the Map bug. Not very graceful - should be fixed ASAP.
             self.pos_x = self.original_pos_x
             self.pos_y = self.original_pos_y
@@ -98,4 +98,4 @@ class Player(object):
                 x.interact_with(self)
 
     def get_inventory(self):
-        TilePy.game.game_log("Player inventory: " + str(self.inventory), 0)
+        TilePy.game_object.game_log("Player inventory: " + str(self.inventory), 0)
