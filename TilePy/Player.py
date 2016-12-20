@@ -1,5 +1,7 @@
 import pygame
 
+import TilePy
+
 
 class Player(object):
     def __init__(self, sprite_list, x, y):
@@ -18,13 +20,13 @@ class Player(object):
         self.check_pos()
         self.check_collision(this_map)
         if self.facing == "down":
-            player = pygame.image.load(self.sprite_list[0])
+            player = pygame.image.load("../" + self.sprite_list[0])
         if self.facing == "up":
-            player = pygame.image.load(self.sprite_list[1])
+            player = pygame.image.load("../" + self.sprite_list[1])
         if self.facing == "right":
-            player = pygame.image.load(self.sprite_list[2])
+            player = pygame.image.load("../" + self.sprite_list[2])
         if self.facing == "left":
-            player = pygame.image.load(self.sprite_list[3])
+            player = pygame.image.load("../" + self.sprite_list[3])
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
     def move(self, direction):
@@ -77,7 +79,7 @@ class Player(object):
                         self.stop()
                         self.pos_y -= 1
         except IndexError:
-            globals()['game'].game_log("Outside the map. Repositioning.", 2)
+            TilePy.game.game_log("Outside the map. Repositioning.", 2)
             # HACK Addresses the Dancing Off the Map bug. Not very graceful - should be fixed ASAP.
             self.pos_x = self.original_pos_x
             self.pos_y = self.original_pos_y
@@ -96,4 +98,4 @@ class Player(object):
                 x.interact_with(self)
 
     def get_inventory(self):
-        globals()['game'].game_log("Player inventory: " + str(self.inventory), 0)
+        TilePy.game.game_log("Player inventory: " + str(self.inventory), 0)

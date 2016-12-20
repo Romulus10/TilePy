@@ -1,6 +1,7 @@
 import pygame
 
-from TilePy.DialogWindow import DialogWindow
+import TilePy
+from DialogWindow import DialogWindow
 
 
 class NPC(object):
@@ -16,14 +17,14 @@ class NPC(object):
     def interact_with(self, player):
         # DONE How do I get dialog to work with NPCs?
         # TODO NPC Interactions
-        globals()['game'].game_log("interacting with " + self.name, 0)
+        TilePy.game.game_log("interacting with " + self.name, 0)
 
     def draw(self, screen):
         # TODO Handle moving NPCs.
         # DONE Handle turning to face player.
         # TODO Handle differentiating between items and people and projectiles.
         # DONE Handle changing active sprite.
-        player = pygame.image.load(self.sprite_list[0])
+        player = pygame.image.load(".." + self.sprite_list[0])
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
     def path_act(self, direction):
@@ -48,14 +49,15 @@ class Actor(NPC):
         self.facing = facing
 
     def draw(self, screen):
+        player = pygame.image.load("../" + self.sprite_list[0])
         if self.facing == "down":
-            player = pygame.image.load(self.sprite_list[0])
+            player = pygame.image.load("../" + self.sprite_list[0])
         if self.facing == "up":
-            player = pygame.image.load(self.sprite_list[1])
+            player = pygame.image.load("../" + self.sprite_list[1])
         if self.facing == "right":
-            player = pygame.image.load(self.sprite_list[2])
+            player = pygame.image.load("../" + self.sprite_list[2])
         if self.facing == "left":
-            player = pygame.image.load(self.sprite_list[3])
+            player = pygame.image.load("../" + self.sprite_list[3])
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
     def turn_to_face_player(self, player):
@@ -73,7 +75,7 @@ class Actor(NPC):
         for x in self.text:
             var = DialogWindow(x)
             var.show()
-            globals()['game'].dialog_window_stack.append(var)
+            TilePy.game.dialog_window_stack.append(var)
 
 
 class ShopKeep(NPC):
@@ -99,18 +101,19 @@ class Item(NPC):
         self.in_inventory = False
 
     def interact_with(self, player):
-        globals()['game'].game_log(globals()['game'].dialog_window_stack, 1)
-        globals()['game'].game_log("added to inventory: " + self.name, 0)
-        var = DialogWindow(self.text)
-        var.show()
-        globals()['game'].dialog_window_stack.append(var)
-        self.done = True
-        self.in_inventory = True
-        player.inventory.append(self)
+        if not self.done:
+            TilePy.game.game_log(TilePy.game.dialog_window_stack, 1)
+            TilePy.game.game_log("added to inventory: " + self.name, 0)
+            var = DialogWindow(self.text)
+            var.show()
+            TilePy.game.dialog_window_stack.append(var)
+            self.done = True
+            self.in_inventory = True
+            player.inventory.append(self)
 
     def draw(self, screen):
         if not self.done:
-            player = pygame.image.load(self.sprite_list[0])
+            player = pygame.image.load("../" + self.sprite_list[0])
             screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
     def use(self):
@@ -119,9 +122,9 @@ class Item(NPC):
         :return:
         """
         if self.in_inventory:
-            globals()['game'].game_log("Using " + self.name, 0)
+            TilePy.game.game_log("Using " + self.name, 0)
         else:
-            globals()['game'].game_log("Item not in player inventory " + self.name, 0)
+            TilePy.game.game_log("Item not in player inventory " + self.name, 0)
 
             # If turn-based combat is the preferred action method of the library, this really isn't necessary.
             # IGNORE class Projectile(NPC):

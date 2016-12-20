@@ -1,9 +1,4 @@
-from .TilePy import begin
-
-colors = {
-    'white': (255, 255, 255),
-    'black': (0, 0, 0),
-    'red': (255, 0, 0),
-    'green': (0, 255, 0),
-    'blue': (0, 0, 255)
-}
+from .Map import Map
+from .NPC import Actor, Item
+from .Player import Player
+from .TilePy import begin, check_for_open_window_and_close, colors, game

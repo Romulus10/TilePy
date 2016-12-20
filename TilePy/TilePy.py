@@ -14,8 +14,17 @@ import romulus_tools
 # globals()['tile_size'] = 32
 # TODO Develop a function to be called every tick to adjust the position of each active NPC based on a given path
 import Game
-import Exceptions.InvalidMapFileException as InvalidMapFileException
+import Exceptions
 
+colors = {
+    'white': (255, 255, 255),
+    'black': (0, 0, 0),
+    'red': (255, 0, 0),
+    'green': (0, 255, 0),
+    'blue': (0, 0, 255)
+}
+
+game = object
 
 def check_for_open_window_and_close(game):
     if len(game.dialog_window_stack) > 0:
@@ -46,7 +55,7 @@ def read_map_file(filename):
         else:
             if len(x) != inr_len:
                 # Raises a fatal exception if the rows of the map are uneven.
-                raise InvalidMapFileException("All rows of the map must be the same length.")
+                raise Exceptions.InvalidMapFileException("All rows of the map must be the same length.")
     top_len = len(list_1)
     return list_1, top_len, inr_len
 
