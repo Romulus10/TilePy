@@ -3,7 +3,7 @@
 # Currently running least awkwardly at 10 fps.
 
 # TODO System for saving and loading game data.
-# TODO System for easy game_init scripts.
+# TODO System for easy game_init scripts - Document the module
 # FIXME Performance is probably utterly atrocious.
 # DONE Dancing Off the Map bug - Reproduce by running test.py and rapidly and repeatedly pressing different arrow keys.
 # DONE Projectiles
@@ -24,6 +24,9 @@ colors = {
     'green': (0, 255, 0),
     'blue': (0, 0, 255)
 }
+
+
+# TODO Develop a function to be called every tick to adjust the position of each active NPC based on a given path
 
 
 def check_for_open_window_and_close(game):
@@ -271,6 +274,7 @@ class NPC(object):
     # TODO NPC AI Movement
     # TODO Determine what dialog box to display when self.done
     def __init__(self, name, done, sprite_list, x, y):
+        self.facing = "down"
         self.name = name
         self.done = done
         self.sprite_list = sprite_list
@@ -282,13 +286,40 @@ class NPC(object):
         # TODO NPC Interactions
         globals()['game'].game_log("interacting with " + self.name, 0)
 
+    def turn_to_face_player(self, player):
+        if player.pos_x == self.pos_x - 1:
+            self.facing = "left"
+        elif player.pos_x == self.pos_x + 1:
+            self.facing = "right"
+        elif player.pos_y == self.pos_y - 1:
+            self.facing = "down"
+        elif self.pos_y == self.pos_y + 1:
+            self.facing = "up"
+
     def draw(self, screen):
         # TODO Handle moving NPCs.
-        # TODO Handle turning to face player.
+        # DONE Handle turning to face player.
         # TODO Handle differentiating between items and people and projectiles.
-        # TODO Handle changing active sprite.
-        player = pygame.image.load(self.sprite_list[0])
+        # DONE Handle changing active sprite.
+        if self.facing == "down":
+            player = pygame.image.load(self.sprite_list[0])
+        if self.facing == "up":
+            player = pygame.image.load(self.sprite_list[1])
+        if self.facing == "right":
+            player = pygame.image.load(self.sprite_list[2])
+        if self.facing == "left":
+            player = pygame.image.load(self.sprite_list[3])
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
+
+    def path_act(self, direction):
+        if direction is "up":
+            self.pos_y += 1
+        if direction is "down":
+            self.pos_y -= 1
+        if direction is "right":
+            self.pos_x += 1
+        if direction is "left":
+            self.pos_x -= 1
 
 
 class Actor(NPC):

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="448bc29d-1e64-4720-b27c-15b1ace2ec1f" name="Default" comment="Started adding more features.">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/TilePy/trainer_down.png" afterPath="$PROJECT_DIR$/TilePy/arrow_down.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/TilePy/trainer_left.png" afterPath="$PROJECT_DIR$/TilePy/arrow_left.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/TilePy/trainer_right.png" afterPath="$PROJECT_DIR$/TilePy/arrow_right.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/TilePy/trainer_up.png" afterPath="$PROJECT_DIR$/TilePy/arrow_up.png" />
+    <list default="true" id="448bc29d-1e64-4720-b27c-15b1ace2ec1f" name="Default" comment="Nothing important actually changed - some filenames refactored.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/TilePy.iml" afterPath="$PROJECT_DIR$/.idea/TilePy.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TilePy/test.py" afterPath="$PROJECT_DIR$/TilePy/test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TilePy/TilePy.py" afterPath="$PROJECT_DIR$/TilePy/TilePy.py" />
     </list>
     <ignored path="TilePy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,10 +28,10 @@
       <file leaf-file-name="TilePy.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TilePy/TilePy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2376">
-              <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+            <state relative-caret-position="-5147">
+              <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
               <folding>
-                <element signature="e#382#392#0" expanded="true" />
+                <element signature="e#403#413#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -118,6 +115,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Setup Script" />
       </list>
     </option>
   </component>
@@ -128,8 +126,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/TilePy/game_setup_tools.py" />
-        <option value="$PROJECT_DIR$/TilePy/TilePy.py" />
         <option value="$PROJECT_DIR$/TilePy/test.py" />
+        <option value="$PROJECT_DIR$/TilePy/TilePy.py" />
       </list>
     </option>
   </component>
@@ -437,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1482096867677</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Nothing important actually changed - some filenames refactored.">
+      <created>1482197386459</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1482197386459</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -455,6 +460,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13854167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -465,7 +471,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39934355" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39934355" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -491,7 +496,8 @@
     <MESSAGE value="Added a bugfix for walking through walls. Bugfix should be improved as soon as possible." />
     <MESSAGE value="Added some classes and docstrings." />
     <MESSAGE value="Started adding more features." />
-    <option name="LAST_COMMIT_MESSAGE" value="Started adding more features." />
+    <MESSAGE value="Nothing important actually changed - some filenames refactored." />
+    <option name="LAST_COMMIT_MESSAGE" value="Nothing important actually changed - some filenames refactored." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -530,7 +536,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -564,7 +570,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -598,7 +604,7 @@
         <state relative-caret-position="352">
           <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -632,7 +638,7 @@
         <state relative-caret-position="7304">
           <caret line="336" column="36" selection-start-line="336" selection-start-column="36" selection-end-line="336" selection-end-column="36" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -666,7 +672,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -700,7 +706,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -734,7 +740,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -768,7 +774,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -802,7 +808,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -902,10 +908,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TilePy/TilePy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2376">
-          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+        <state relative-caret-position="-5147">
+          <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
           <folding>
-            <element signature="e#382#392#0" expanded="true" />
+            <element signature="e#403#413#0" expanded="true" />
           </folding>
         </state>
       </provider>
