@@ -10,6 +10,8 @@ class Game(object):
         self.name = name
         self.FPS = 10
         self.dialog_window_stack = []
+        self.maps = []
+        self.current_map = 0
         print("Made with TilePy by Romulus10")
         print("TilePy is loading...")
 

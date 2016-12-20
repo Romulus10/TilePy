@@ -6,22 +6,26 @@ import TilePy
 
 game = TilePy.begin("Test")
 
-current_map = TilePy.Map("test",
-                         [[1, 1, 1, 1, 1],
-                          [1, 0, 0, 0, 1],
-                          [1, 0, 0, 0, 1],
-                          [1, 0, 0, 0, 1],
-                          [1, 1, 1, 1, 1]],
-                         [1],
-                         ['assets/images/wood_floor.png', 'assets/images/wood_wall.png'],
-                         5,
-                         5,
-                         [TilePy.Item("rock", False, ['assets/images/test.png'], 2, 2, "I got a rock..."),
-                          TilePy.Actor("actor", False,
-                                       ["assets/images/arrow_down.png", "assets/images/arrow_up.png",
-                                        "assets/images/arrow_right.png", "assets/images/arrow_left.png"], 1, 1,
-                                       ["I am an NPC!", "Hello!"], "up")
-                          ])
+game.maps = [
+    TilePy.Map("test",
+               [[1, 1, 1, 1, 1],
+                [1, 0, 0, 0, 1],
+                [1, 0, 0, 0, 1],
+                [1, 0, 0, 0, 1],
+                [1, 1, 1, 1, 1]],
+               [1],
+               ['assets/images/wood_floor.png', 'assets/images/wood_wall.png'],
+               5,
+               5,
+               [TilePy.Item("rock", False, ['assets/images/test.png'], 2, 2, "I got a rock..."),
+                TilePy.Actor("actor", False,
+                             ["assets/images/arrow_down.png", "assets/images/arrow_up.png",
+                              "assets/images/arrow_right.png", "assets/images/arrow_left.png"], 1, 1,
+                             ["I am an NPC!", "Hello!"], "up")
+                ])
+]
+
+game.current_map = game.maps[0]
 
 player = TilePy.Player(["assets/images/arrow_down.png", "assets/images/arrow_up.png", "assets/images/arrow_right.png",
                         "assets/images/arrow_left.png"], 3, 3)
@@ -42,9 +46,9 @@ while not done:
 
     screen.fill((0, 0, 0))
 
-    current_map.draw(screen)
+    game.current_map.draw(screen)
 
-    player.draw(screen, current_map)
+    player.draw(screen, game.current_map)
 
     for x in game.dialog_window_stack:
         x.draw(screen)
@@ -80,7 +84,7 @@ while not done:
                 if TilePy.check_for_open_window_and_close(game):
                     pass
                 else:
-                    player.check_for_interaction(current_map)
+                    player.check_for_interaction(game.current_map)
             game.game_log(game.dialog_window_stack, 1)
 
     pygame.display.flip()
