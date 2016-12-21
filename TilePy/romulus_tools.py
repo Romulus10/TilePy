@@ -1,7 +1,9 @@
 def remove_newlines(x):
     """
-
-    :param x: list
+    .. py:function:: remove_newlines(x)
+    Extract newlines from a list.
+    :param x: list of characters
+    :rtype: list of characters
     """
     for y in x:
         if y == "\n":

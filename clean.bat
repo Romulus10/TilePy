@@ -1,2 +1,0 @@
-cd TilePy
-rm *.pyc

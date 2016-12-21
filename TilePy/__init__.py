@@ -1,3 +1,7 @@
+"""
+.. automodule:: package
+"""
+
 from .Map import Map
 from .NPC import Actor, Item
 from .Player import Player
