@@ -13,6 +13,9 @@ class Map(object):
         self.entities = entities
 
     def draw(self, screen):
+        """
+        :param screen: A pygame.Surface object
+        """
         for x in range(self.size_x):
             for y in range(self.size_y):
                 tile = pygame.image.load("../" + self.list_tiles[self.tiles[x][y]])

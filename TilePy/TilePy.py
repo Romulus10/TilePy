@@ -28,6 +28,10 @@ game_object = object
 
 
 def check_for_open_window_and_close(game):
+    """
+    :param game: TilePy.Game object for the game
+    :rtype: Boolean
+    """
     if len(game.dialog_window_stack) > 0:
         if game.dialog_window_stack[len(game.dialog_window_stack) - 1].visible:
             game.dialog_window_stack[len(game.dialog_window_stack) - 1].hide()
@@ -40,8 +44,9 @@ def check_for_open_window_and_close(game):
 def read_map_file(filename):
     # TODO Test read_map_file.
     """
-    Returns a tuple of (map_list, x, y)
-    :rtype: tuple
+    :param filename: the name of the map file to read
+    :rtype: a tuple (map_list, map_length, map_width)
+    :raises: TilePy.Exceptions.InvalidMapException
     """
     iterations = 0
     inr_len = 0

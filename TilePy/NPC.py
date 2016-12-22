@@ -102,6 +102,9 @@ class Item(NPC):
             player.inventory.append(self)
 
     def draw(self, screen):
+        """
+        :param screen: a pygame.Surface object.
+        """
         if not self.done:
             player = pygame.image.load("../" + self.sprite_list[0])
             screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
@@ -109,7 +112,6 @@ class Item(NPC):
     def use(self):
         """
         This is a stub to be inherited by game_object-specific Item objects.
-        :return:
         """
         if self.in_inventory:
             TilePy.game_object.game_log("Using " + self.name, 0)

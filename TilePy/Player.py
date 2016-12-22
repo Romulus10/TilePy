@@ -16,6 +16,10 @@ class Player(object):
         self.inventory = []
 
     def draw(self, screen, this_map):
+        """
+        :param screen: A pygame.Surface object
+        :param this_map: The TilePy.Map object to be drawn
+        """
         player = None
         self.check_pos()
         self.check_collision(this_map)
@@ -30,6 +34,9 @@ class Player(object):
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
     def move(self, direction):
+        """
+        :param direction: "up", "down", "left", or "right"
+        """
         self.facing = direction
         if direction == "down":
             self.speed_y = 1
@@ -50,6 +57,9 @@ class Player(object):
 
     def check_collision(self, this_map):
         # DONE Check collision with NPC.
+        """
+        :param this_map: A TilePy.Map object
+        """
         try:
             if this_map.tiles[self.pos_x][self.pos_y] in this_map.wall_values:
                 if self.facing == "left":

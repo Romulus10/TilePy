@@ -19,6 +19,10 @@ class Game(object):
         self.game_log("Ready", 0)
 
     def game_log(self, msg, level):
+        """
+        :param msg: The text displayed in the log
+        :param level: The type of log event.
+        """
         msg = str(msg)
         level_name = ""
         if level == 0:
