@@ -7,14 +7,14 @@ from DialogWindow import DialogWindow
 class NPC(object):
     # TODO NPC AI Movement
     # TODO Determine what dialog box to display when self.done
-    def __init__(self, name, done, sprite_list, x, y):
+    def __init__(self, name, done, sprite_list, x, y, attackable):
         self.name = name
         self.done = done
         self.sprite_list = sprite_list
         self.pos_x = x
         self.pos_y = y
         self.visible = True
-        self.is_attackable = False
+        self.is_attackable = attackable
 
     def interact_with(self, player):
         # TODO NPC Interactions
@@ -33,7 +33,7 @@ class Actor(NPC):
     Implements a human-type NPC that the player can talk to.
     """
 
-    def __init__(self, name, done, sprite_list, x, y, text, facing):
+    def __init__(self, name, done, sprite_list, x, y, text, facing, health, attack, defense, attackable):
         """
         :param name: The name of the actor
         :param done: Whether we've talked to them already or not
@@ -43,21 +43,25 @@ class Actor(NPC):
         :param text: Any dialog windows to be displayed. These should be in the list in REVERSE ORDER.
         :param facing: Initial direction - "up", "down", "left", or "right"
         """
-        super(Actor, self).__init__(name, done, sprite_list, x, y)
+        super(Actor, self).__init__(name, done, sprite_list, x, y, attackable)
         self.text = text
         self.facing = facing
+        self.health = health
+        self.attack = attack
+        self.defense = defense
 
     def draw(self, screen):
-        player = pygame.image.load("../" + self.sprite_list[0])
-        if self.facing == "down":
+        if self.visible:
             player = pygame.image.load("../" + self.sprite_list[0])
-        if self.facing == "up":
-            player = pygame.image.load("../" + self.sprite_list[1])
-        if self.facing == "right":
-            player = pygame.image.load("../" + self.sprite_list[2])
-        if self.facing == "left":
-            player = pygame.image.load("../" + self.sprite_list[3])
-        screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
+            if self.facing == "down":
+                player = pygame.image.load("../" + self.sprite_list[0])
+            if self.facing == "up":
+                player = pygame.image.load("../" + self.sprite_list[1])
+            if self.facing == "right":
+                player = pygame.image.load("../" + self.sprite_list[2])
+            if self.facing == "left":
+                player = pygame.image.load("../" + self.sprite_list[3])
+            screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
     def turn_to_face_player(self, player):
         if player.pos_x == self.pos_x - 1:
@@ -70,11 +74,17 @@ class Actor(NPC):
             self.facing = "up"
 
     def interact_with(self, player):
-        self.turn_to_face_player(player)
-        for x in self.text:
-            var = DialogWindow(x)
-            var.show()
-            TilePy.game_object.dialog_window_stack.append(var)
+        if not self.done:
+            self.turn_to_face_player(player)
+            for x in self.text:
+                var = DialogWindow(x)
+                var.show()
+                TilePy.game_object.dialog_window_stack.append(var)
+
+    def check_if_dead(self):
+        if self.health <= 0:
+            self.visible = False
+            self.done = True
 
 
 class ShopKeep(NPC):
@@ -82,8 +92,8 @@ class ShopKeep(NPC):
     Implements an NPC entity with an inventory that the player can trade with.
     """
 
-    def __init__(self, name, done, sprite_list, x, y):
-        super(ShopKeep, self).__init__(name, done, sprite_list, x, y)
+    def __init__(self, name, done, sprite_list, x, y, ):
+        super(ShopKeep, self).__init__(name, done, sprite_list, x, y, False)
 
 
 class Item(NPC):
@@ -92,8 +102,8 @@ class Item(NPC):
     They should however ONLY override the "use" method. All other methods should work fine.
     """
 
-    def __init__(self, name, done, sprite_list, x, y, msg):
-        super(Item, self).__init__(name, done, sprite_list, x, y)
+    def __init__(self, name, done, sprite_list, x, y, msg, ):
+        super(Item, self).__init__(name, done, sprite_list, x, y, False)
         self.text = msg
         self.in_inventory = False
 

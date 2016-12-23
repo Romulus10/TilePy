@@ -22,14 +22,18 @@ game.maps = [
                 TilePy.Actor("actor", False,
                              ["assets/images/arrow_down.png", "assets/images/arrow_up.png",
                               "assets/images/arrow_right.png", "assets/images/arrow_left.png"], 1, 1,
-                             ["I am an NPC!", "Hello!"], "up")
+                             ["I am an NPC!", "Hello!"], "up", 10, 1, 1, False),
+                TilePy.Actor("actor", False,
+                             ["assets/images/arrow_down.png", "assets/images/arrow_up.png",
+                              "assets/images/arrow_right.png", "assets/images/arrow_left.png"], 4, 4,
+                             ["I am an enemy!", "Hello!"], "up", 10, 1, 1, True)
                 ])
 ]
 
 game.current_map = game.maps[0]
 
 player = TilePy.Player(["assets/images/arrow_down.png", "assets/images/arrow_up.png", "assets/images/arrow_right.png",
-                        "assets/images/arrow_left.png"], 3, 3)
+                        "assets/images/arrow_left.png"], 3, 3, 10, 1, 1)
 
 pygame.init()
 
@@ -81,6 +85,8 @@ while not done:
                 player.move("left")
             if event.key == pygame.K_i:
                 player.get_inventory()
+            if event.key == pygame.K_t:
+                player.check_for_attack(game.current_map)
             if event.key == pygame.K_x:
                 if TilePy.check_for_open_window_and_close(game):
                     pass

@@ -8,7 +8,7 @@
 
 import Exceptions
 import Game
-import romulus_tools
+import tools
 
 colors = {
     'white': (255, 255, 255),
@@ -49,7 +49,7 @@ def read_map_file(filename):
     f.close()
     for x in list_1:
         x.split(',')
-        romulus_tools.remove_newlines(x)
+        tools.remove_newlines(x)
         if iterations > 0:
             inr_len = len(x)
         else:

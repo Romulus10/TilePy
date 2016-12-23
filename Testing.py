@@ -1,12 +1,12 @@
 import unittest
 
-import TilePy.romulus_tools as rt
+import TilePy.tools as t
 
 
-class RomulusToolsTest(unittest.TestCase):
+class ToolsTest(unittest.TestCase):
     def test_remove_newlines(self):
         x = ['a', '\n', 'u']
-        self.assertEqual(rt.remove_newlines(x), ['a', 'u'])
+        self.assertEqual(t.remove_newlines(x), ['a', 'u'])
 
 
 if __name__ == "__main__":

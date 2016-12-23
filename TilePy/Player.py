@@ -1,10 +1,11 @@
 import pygame
 
 import TilePy
+import tools
 
 
 class Player(object):
-    def __init__(self, sprite_list, x, y):
+    def __init__(self, sprite_list, x, y, health, attack, defense):
         self.sprite_list = sprite_list
         self.original_pos_x = x
         self.original_pos_y = y
@@ -14,6 +15,9 @@ class Player(object):
         self.speed_y = 0
         self.facing = "down"
         self.inventory = []
+        self.health = health
+        self.attack = attack
+        self.defense = defense
 
     def draw(self, screen, this_map):
         """
@@ -107,19 +111,23 @@ class Player(object):
     def check_for_attack(self, this_map):
         for x in this_map.entities:
             if x.pos_x == self.pos_x - 1 and self.facing == "left":
-                self.attack(x)
+                self.try_attack(x)
             if x.pos_x == self.pos_x + 1 and self.facing == "right":
-                self.attack(x)
+                self.try_attack(x)
             if x.pos_y == self.pos_y - 1 and self.facing == "up":
-                self.attack(x)
+                self.try_attack(x)
             if x.pos_y == self.pos_y + 1 and self.facing == "down":
-                self.attack(x)
+                self.try_attack(x)
 
     def get_inventory(self):
         TilePy.game_object.game_log("Player inventory: " + str(self.inventory), 0)
 
-    def attack(self, target):
+    def try_attack(self, target):
+        print("Target Health: " + str(target.health))
         if target.is_attackable:
-            pass
+            target.health -= tools.calculate_damage(self.attack, target.defense)
+            print("Updated Target Health: " + str(target.health))
+            target.check_if_dead()
         else:
+            print("Target is not a valid target.")
             pass
