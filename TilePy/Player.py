@@ -104,5 +104,22 @@ class Player(object):
             if x.pos_y == self.pos_y + 1 and self.facing == "down":
                 x.interact_with(self)
 
+    def check_for_attack(self, this_map):
+        for x in this_map.entities:
+            if x.pos_x == self.pos_x - 1 and self.facing == "left":
+                self.attack(x)
+            if x.pos_x == self.pos_x + 1 and self.facing == "right":
+                self.attack(x)
+            if x.pos_y == self.pos_y - 1 and self.facing == "up":
+                self.attack(x)
+            if x.pos_y == self.pos_y + 1 and self.facing == "down":
+                self.attack(x)
+
     def get_inventory(self):
         TilePy.game_object.game_log("Player inventory: " + str(self.inventory), 0)
+
+    def attack(self, target):
+        if target.is_attackable:
+            pass
+        else:
+            pass

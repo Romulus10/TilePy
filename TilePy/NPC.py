@@ -13,6 +13,8 @@ class NPC(object):
         self.sprite_list = sprite_list
         self.pos_x = x
         self.pos_y = y
+        self.visible = True
+        self.is_attackable = False
 
     def interact_with(self, player):
         # TODO NPC Interactions
@@ -21,8 +23,9 @@ class NPC(object):
     def draw(self, screen):
         # TODO Handle moving NPCs.
         # TODO Handle differentiating between items and people and projectiles.
-        player = pygame.image.load(".." + self.sprite_list[0])
-        screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
+        if self.visible:
+            player = pygame.image.load(".." + self.sprite_list[0])
+            screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
 
 class Actor(NPC):
