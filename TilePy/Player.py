@@ -35,7 +35,7 @@ class Player(object):
 
     def move(self, direction):
         """
-        :param direction: "up", "down", "left", or "right"
+        :param direction: Initial direction - "up", "down", "left", or "right"
         """
         self.facing = direction
         if direction == "down":
@@ -56,7 +56,6 @@ class Player(object):
         self.pos_x += self.speed_x
 
     def check_collision(self, this_map):
-        # DONE Check collision with NPC.
         """
         :param this_map: A TilePy.Map object
         """
@@ -95,8 +94,6 @@ class Player(object):
             self.pos_y = self.original_pos_y
 
     def check_for_interaction(self, this_map):
-        # DONE Test check_for_interaction
-        # DONE Rewrite check_for_interaction.
         for x in this_map.entities:
             if x.pos_x == self.pos_x - 1 and self.facing == "left":
                 x.interact_with(self)

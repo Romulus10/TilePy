@@ -5,16 +5,10 @@
 # TODO System for saving and loading game_object data.
 # TODO System for easy game_init scripts - Document the module
 # FIXME Performance is probably utterly atrocious.
-# DONE Dancing Off the Map bug - Reproduce by running test.py and rapidly and repeatedly pressing different arrow keys.
-# DONE Projectiles
 
-import romulus_tools
-
-# Don't use this - it's easier and better practice to just remember "32".
-# globals()['tile_size'] = 32
-# TODO Develop a function to be called every tick to adjust the position of each active NPC based on a given path
-import Game
 import Exceptions
+import Game
+import romulus_tools
 
 colors = {
     'white': (255, 255, 255),
@@ -67,5 +61,9 @@ def read_map_file(filename):
 
 
 def begin(name):
+    """
+    :param name: A string, just the name of the game object.
+    :return: A game object to be referred to throughout the files.
+    """
     globals()['game_object'] = Game.Game(name)
     return globals()['game_object']

@@ -4,10 +4,8 @@ from TilePy import colors
 
 
 class DialogWindow(object):
-    # TODO Test dialog windows.
     # TODO Check string overflow.
-    # DONE Set up multiple dialog boxes to one event.
-    #   We just push multiple DialogWindows to the queue in reverse order.
+    # We just push multiple DialogWindows to the queue in reverse order.
     def __init__(self, text):
         """
         :param text: Text to display in the dialog window.
@@ -39,6 +37,7 @@ class DialogWindow(object):
 
 
 class Menu(object):
+    # TODO Develop a system for interacting with windows.
     def __init__(self, text):
         """
         :param text: A list of menu items
@@ -50,6 +49,7 @@ class Menu(object):
         self.width = 500
         self.text = text
         self.font = pygame.font.Font(None, 40)
+        self.current_selection = 0
 
     def draw(self, screen):
         if self.visible:

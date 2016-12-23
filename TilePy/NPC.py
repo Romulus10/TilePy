@@ -15,15 +15,12 @@ class NPC(object):
         self.pos_y = y
 
     def interact_with(self, player):
-        # DONE How do I get dialog to work with NPCs?
         # TODO NPC Interactions
         TilePy.game_object.game_log("interacting with " + self.name, 0)
 
     def draw(self, screen):
         # TODO Handle moving NPCs.
-        # DONE Handle turning to face player.
         # TODO Handle differentiating between items and people and projectiles.
-        # DONE Handle changing active sprite.
         player = pygame.image.load(".." + self.sprite_list[0])
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
@@ -34,6 +31,15 @@ class Actor(NPC):
     """
 
     def __init__(self, name, done, sprite_list, x, y, text, facing):
+        """
+        :param name: The name of the actor
+        :param done: Whether we've talked to them already or not
+        :param sprite_list: Images used for this actor.
+        :param x: Initial x position.
+        :param y: Initial y position.
+        :param text: Any dialog windows to be displayed. These should be in the list in REVERSE ORDER.
+        :param facing: Initial direction - "up", "down", "left", or "right"
+        """
         super(Actor, self).__init__(name, done, sprite_list, x, y)
         self.text = text
         self.facing = facing
@@ -83,8 +89,6 @@ class Item(NPC):
     They should however ONLY override the "use" method. All other methods should work fine.
     """
 
-    # DONE Add using
-    # DONE and picking up items.
     def __init__(self, name, done, sprite_list, x, y, msg):
         super(Item, self).__init__(name, done, sprite_list, x, y)
         self.text = msg
@@ -113,17 +117,8 @@ class Item(NPC):
         """
         This is a stub to be inherited by game_object-specific Item objects.
         """
+        # TODO Implement using items in inventory.
         if self.in_inventory:
             TilePy.game_object.game_log("Using " + self.name, 0)
         else:
             TilePy.game_object.game_log("Item not in player inventory " + self.name, 0)
-
-            # If turn-based combat is the preferred action method of the library, this really isn't necessary.
-            # IGNORE class Projectile(NPC):
-            # IGNORE This needs specialized collision detection.
-            # def __init__(self, name, done, sprite_list, x, y):
-            # super(Projectile, self).__init__(name, done, sprite_list, x, y)
-
-            # def interact_with(self, player):
-            # IGNORE Redesign for projectiles.
-            # pass
