@@ -99,24 +99,24 @@ class Player(object):
 
     def check_for_interaction(self, this_map):
         for x in this_map.entities:
-            if x.pos_x == self.pos_x - 1 and self.facing == "left":
+            if x.pos_x == self.pos_x - 1 and x.pos_y == self.pos_y and self.facing == "left":
                 x.interact_with(self)
-            if x.pos_x == self.pos_x + 1 and self.facing == "right":
+            if x.pos_x == self.pos_x + 1 and x.pos_y == self.pos_y and self.facing == "right":
                 x.interact_with(self)
-            if x.pos_y == self.pos_y - 1 and self.facing == "up":
+            if x.pos_y == self.pos_y - 1 and x.pos_x == self.pos_x and self.facing == "up":
                 x.interact_with(self)
-            if x.pos_y == self.pos_y + 1 and self.facing == "down":
+            if x.pos_y == self.pos_y + 1 and x.pos_x == self.pos_x and self.facing == "down":
                 x.interact_with(self)
 
     def check_for_attack(self, this_map):
         for x in this_map.entities:
-            if x.pos_x == self.pos_x - 1 and self.facing == "left":
+            if x.pos_x == self.pos_x - 1 and x.pos_y == self.pos_y and self.facing == "left":
                 self.try_attack(x)
-            if x.pos_x == self.pos_x + 1 and self.facing == "right":
+            if x.pos_x == self.pos_x + 1 and x.pos_y == self.pos_y and self.facing == "right":
                 self.try_attack(x)
-            if x.pos_y == self.pos_y - 1 and self.facing == "up":
+            if x.pos_y == self.pos_y - 1 and x.pos_x == self.pos_x and self.facing == "up":
                 self.try_attack(x)
-            if x.pos_y == self.pos_y + 1 and self.facing == "down":
+            if x.pos_y == self.pos_y + 1 and x.pos_x == self.pos_x and self.facing == "down":
                 self.try_attack(x)
 
     def get_inventory(self):
