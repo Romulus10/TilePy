@@ -8,7 +8,7 @@ class Game(object):
 
     def __init__(self, name):
         self.name = name
-        self.FPS = 9
+        self.FPS = 9  # Somehow, this seems to be the optimal frame rate?
         self.dialog_window_stack = []
         self.maps = []
         self.current_map = 0
