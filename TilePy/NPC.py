@@ -52,15 +52,15 @@ class Actor(NPC):
 
     def draw(self, screen):
         if self.visible:
-            player = pygame.image.load(self.sprite_list[0])
+            player = pygame.image.load("../" + self.sprite_list[0])
             if self.facing == "down":
-                player = pygame.image.load(self.sprite_list[0])
+                player = pygame.image.load("../" + self.sprite_list[0])
             if self.facing == "up":
-                player = pygame.image.load(self.sprite_list[1])
+                player = pygame.image.load("../" + self.sprite_list[1])
             if self.facing == "right":
-                player = pygame.image.load(self.sprite_list[2])
+                player = pygame.image.load("../" + self.sprite_list[2])
             if self.facing == "left":
-                player = pygame.image.load(self.sprite_list[3])
+                player = pygame.image.load("../" + self.sprite_list[3])
             screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
     def turn_to_face_player(self, player):
@@ -123,7 +123,7 @@ class Item(NPC):
         :param screen: a pygame.Surface object.
         """
         if not self.done:
-            player = pygame.image.load(self.sprite_list[0])
+            player = pygame.image.load("../" + self.sprite_list[0])
             screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
     def use(self):
