@@ -126,11 +126,19 @@ class Player(object):
         TilePy.game_object.game_log("Player inventory: " + str(self.inventory), 0)
 
     def try_attack(self, target):
-        print("Target Health: " + str(target.health))
         if target.is_attackable:
+            print("Target Health: " + str(target.health))
             target.health -= tools.calculate_damage(self.attack, target.defense)
             print("Updated Target Health: " + str(target.health))
-            target.check_if_dead()
+            if not target.check_if_dead():
+                print("Player Health: " + str(self.health))
+                self.health -= tools.calculate_damage(target.attack, self.defense)
+                print("Updated Player Health: " + str(self.health))
         else:
             print("Target is not a valid target.")
-            pass
+
+    def check_death(self):
+        if self.health <= 0:
+            return True
+        else:
+            return False

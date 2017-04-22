@@ -2,6 +2,7 @@
 .. automodule:: package
 """
 
+from .DialogWindow import DialogWindow
 from .Map import Map
 from .MapGate import MapGate
 from .NPC import Actor, Item

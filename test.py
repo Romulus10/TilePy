@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 import TilePy
@@ -110,6 +112,12 @@ while not done:
                 else:
                     player.check_for_interaction()
             game.game_log(game.dialog_window_stack, 1)
+
+    if player.check_death():
+        # TODO Please don't leave this this way.
+        print("You have died.")
+        pygame.quit()
+        sys.exit()
 
     pygame.display.flip()
 

@@ -85,6 +85,9 @@ class Actor(NPC):
         if self.health <= 0:
             self.visible = False
             self.done = True
+            return True
+        else:
+            return False
 
 
 class ShopKeep(NPC):
