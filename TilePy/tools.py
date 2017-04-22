@@ -13,13 +13,13 @@ def remove_newlines(x):
     return x
 
 
-def die_roll(sides):
+def die_roll(dice):
     """
     Rolls a die with [sides] sides.
-    :param sides: Number of sides on the die.
+    :param dice: Number of sides on the die.
     :rtype: Integer from 1 to [sides]
     """
-    return random.randrange(sides)
+    return random.randrange(4) * dice
 
 
 def calculate_damage(attack, defense):

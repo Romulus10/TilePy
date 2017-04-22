@@ -24,11 +24,11 @@ game.maps = [
                 TilePy.Actor("actor", False,
                              ["assets/images/arrow_down.png", "assets/images/arrow_up.png",
                               "assets/images/arrow_right.png", "assets/images/arrow_left.png"], 1, 1,
-                             ["I am an NPC!", "Hello!"], "up", 10, 1, 1, False),
+                             ["I am an NPC!", "Hello!"], "up", 20, 1, 1, False),
                 TilePy.Actor("actor", False,
                              ["assets/images/arrow_down.png", "assets/images/arrow_up.png",
                               "assets/images/arrow_right.png", "assets/images/arrow_left.png"], 4, 4,
-                             ["I am an enemy!", "Hello!"], "up", 10, 1, 1, True),
+                             ["I am an enemy!", "Hello!"], "up", 20, 1, 1, True),
                 ]),
     TilePy.Map("test2",
                [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -52,7 +52,7 @@ game.maps[0].entities.append(TilePy.MapGate(3, 1, game.maps[0], game.maps[1], "a
 game.maps[1].entities.append(TilePy.MapGate(3, 1, game.maps[1], game.maps[0], "assets/images/door.png"))
 
 player = TilePy.Player(["assets/images/arrow_down.png", "assets/images/arrow_up.png", "assets/images/arrow_right.png",
-                        "assets/images/arrow_left.png"], 3, 3, 10, 1, 1, game.maps[0])
+                        "assets/images/arrow_left.png"], 3, 3, 20, 1, 1, game.maps[0])
 
 pygame.init()
 
