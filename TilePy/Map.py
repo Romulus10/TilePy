@@ -17,7 +17,7 @@ class Map(object):
         """
         for x in range(self.size_x):
             for y in range(self.size_y):
-                tile = pygame.image.load("../" + self.list_tiles[self.tiles[x][y]])
+                tile = pygame.image.load(self.list_tiles[self.tiles[x][y]])
                 screen.blit(tile, [x * 32, y * 32])
         for x in self.entities:
             x.draw(screen)
