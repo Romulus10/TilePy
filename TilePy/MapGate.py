@@ -23,7 +23,7 @@ class MapGate(object):
         player = pygame.image.load("../" + self.image)
         screen.blit(player, [self.pos_x * 32, self.pos_y * 32])
 
-    # noinspection PyMethodMayBeStatic
+    # noinspection PyMethodMayBeStatic,PyUnusedLocal
     def interact_with(self, p):
         """
         :type p: This is completely pointless and only included for uniformity with the other interact_with methods.
