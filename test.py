@@ -1,8 +1,8 @@
 import pygame
 
-# import pdb
-
 import TilePy
+
+# import pdb
 
 game = TilePy.begin("Test")
 
@@ -26,14 +26,31 @@ game.maps = [
                 TilePy.Actor("actor", False,
                              ["assets/images/arrow_down.png", "assets/images/arrow_up.png",
                               "assets/images/arrow_right.png", "assets/images/arrow_left.png"], 4, 4,
-                             ["I am an enemy!", "Hello!"], "up", 10, 1, 1, True)
-                ])
+                             ["I am an enemy!", "Hello!"], "up", 10, 1, 1, True),
+                ]),
+    TilePy.Map("test2",
+               [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+               [1],
+               ['assets/images/wood_floor.png', 'assets/images/wood_wall.png'],
+               10,
+               10,
+               [])
 ]
 
-game.current_map = game.maps[0]
+game.maps[0].entities.append(TilePy.MapGate(3, 1, game.maps[0], game.maps[1], "assets/images/door.png"))
+game.maps[1].entities.append(TilePy.MapGate(3, 1, game.maps[1], game.maps[0], "assets/images/door.png"))
 
 player = TilePy.Player(["assets/images/arrow_down.png", "assets/images/arrow_up.png", "assets/images/arrow_right.png",
-                        "assets/images/arrow_left.png"], 3, 3, 10, 1, 1)
+                        "assets/images/arrow_left.png"], 3, 3, 10, 1, 1, game.maps[0])
 
 pygame.init()
 
@@ -51,9 +68,9 @@ while not done:
 
     screen.fill((0, 0, 0))
 
-    game.current_map.draw(screen)
+    player.map.draw(screen)
 
-    player.draw(screen, game.current_map)
+    player.draw(screen)
 
     for x in game.dialog_window_stack:
         x.draw(screen)
@@ -86,12 +103,12 @@ while not done:
             if event.key == pygame.K_i:
                 player.get_inventory()
             if event.key == pygame.K_t:
-                player.check_for_attack(game.current_map)
+                player.check_for_attack()
             if event.key == pygame.K_x:
                 if TilePy.check_for_open_window_and_close(game):
                     pass
                 else:
-                    player.check_for_interaction(game.current_map)
+                    player.check_for_interaction()
             game.game_log(game.dialog_window_stack, 1)
 
     pygame.display.flip()

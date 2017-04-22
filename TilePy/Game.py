@@ -8,7 +8,7 @@ class Game(object):
 
     def __init__(self, name):
         self.name = name
-        self.FPS = 10
+        self.FPS = 9
         self.dialog_window_stack = []
         self.maps = []
         self.current_map = 0

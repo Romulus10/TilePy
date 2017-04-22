@@ -2,7 +2,6 @@ import pygame
 
 
 class Map(object):
-    # TODO Handle moving between maps.
     def __init__(self, name, tiles, wall_values, list_tiles, x, y, entities):
         self.name = name
         self.tiles = tiles

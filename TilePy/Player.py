@@ -1,11 +1,12 @@
 import pygame
 
+import MapGate
 import TilePy
 import tools
 
 
 class Player(object):
-    def __init__(self, sprite_list, x, y, health, attack, defense):
+    def __init__(self, sprite_list, x, y, health, attack, defense, this_map):
         self.sprite_list = sprite_list
         self.original_pos_x = x
         self.original_pos_y = y
@@ -18,15 +19,15 @@ class Player(object):
         self.health = health
         self.attack = attack
         self.defense = defense
+        self.map = this_map
 
-    def draw(self, screen, this_map):
+    def draw(self, screen):
         """
         :param screen: A pygame.Surface object
-        :param this_map: The TilePy.Map object to be drawn
         """
         player = None
         self.check_pos()
-        self.check_collision(this_map)
+        self.check_collision()
         if self.facing == "down":
             player = pygame.image.load("../" + self.sprite_list[0])
         if self.facing == "up":
@@ -59,12 +60,9 @@ class Player(object):
         self.pos_y += self.speed_y
         self.pos_x += self.speed_x
 
-    def check_collision(self, this_map):
-        """
-        :param this_map: A TilePy.Map object
-        """
+    def check_collision(self):
         try:
-            if this_map.tiles[self.pos_x][self.pos_y] in this_map.wall_values:
+            if self.map.tiles[self.pos_x][self.pos_y] in self.map.wall_values:
                 if self.facing == "left":
                     self.stop()
                     self.pos_x += 1
@@ -77,8 +75,9 @@ class Player(object):
                 if self.facing == "down":
                     self.stop()
                     self.pos_y -= 1
-            for x in this_map.entities:
-                if (self.pos_x == x.pos_x and self.pos_y == x.pos_y) and not x.done:
+            for x in self.map.entities:
+                if (self.pos_x == x.pos_x and self.pos_y == x.pos_y) and not x.done \
+                        and not isinstance(x, MapGate.MapGate):
                     if self.facing == "left":
                         self.stop()
                         self.pos_x += 1
@@ -91,14 +90,18 @@ class Player(object):
                     if self.facing == "down":
                         self.stop()
                         self.pos_y -= 1
+                if isinstance(x, MapGate.MapGate) and (self.pos_x == x.pos_x and self.pos_y == x.pos_y):
+                    self.pos_x = x.pos_x
+                    self.pos_y = x.pos_y + 1
+                    self.map = x.to_map
         except IndexError:
             TilePy.game_object.game_log("Outside the map. Repositioning.", 2)
             # HACK Addresses the Dancing Off the Map bug. Not very graceful - should be fixed ASAP.
             self.pos_x = self.original_pos_x
             self.pos_y = self.original_pos_y
 
-    def check_for_interaction(self, this_map):
-        for x in this_map.entities:
+    def check_for_interaction(self):
+        for x in self.map.entities:
             if x.pos_x == self.pos_x - 1 and x.pos_y == self.pos_y and self.facing == "left":
                 x.interact_with(self)
             if x.pos_x == self.pos_x + 1 and x.pos_y == self.pos_y and self.facing == "right":
@@ -108,8 +111,8 @@ class Player(object):
             if x.pos_y == self.pos_y + 1 and x.pos_x == self.pos_x and self.facing == "down":
                 x.interact_with(self)
 
-    def check_for_attack(self, this_map):
-        for x in this_map.entities:
+    def check_for_attack(self):
+        for x in self.map.entities:
             if x.pos_x == self.pos_x - 1 and x.pos_y == self.pos_y and self.facing == "left":
                 self.try_attack(x)
             if x.pos_x == self.pos_x + 1 and x.pos_y == self.pos_y and self.facing == "right":
