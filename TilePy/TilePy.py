@@ -1,6 +1,6 @@
 # Module by Romulus10
 # Tile sizes are ALWAYS 32x32.
-# Currently running least awkwardly at 10 fps.
+# Currently running least awkwardly at 9 fps.
 
 # TODO System for saving and loading game_object data.
 # TODO System for easy game_init scripts - Document the module

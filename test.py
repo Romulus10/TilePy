@@ -46,6 +46,11 @@ game.maps = [
                [])
 ]
 
+'''
+Adding map gates has to be a little bit weird because the maps you're linking both have to exist in context at the same
+time. Clearly, that's hard to do when you're actively instantiating maps during runtime, so the MapGates need to be
+added AFTER all of the maps are added to the interpreter's context.
+'''
 game.maps[0].entities.append(TilePy.MapGate(3, 1, game.maps[0], game.maps[1], "assets/images/door.png"))
 game.maps[1].entities.append(TilePy.MapGate(3, 1, game.maps[1], game.maps[0], "assets/images/door.png"))
 
