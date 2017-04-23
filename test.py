@@ -54,6 +54,8 @@ game.maps[1].entities.append(TilePy.MapGate(3, 1, game.maps[1], game.maps[0], "a
 player = TilePy.Player(["assets/images/arrow_down.png", "assets/images/arrow_up.png", "assets/images/arrow_right.png",
                         "assets/images/arrow_left.png"], 3, 3, 20, 1, 1, game.maps[0])
 
+menus = [TilePy.Menu(["Test", "This", "Menu"])]
+
 pygame.init()
 
 screen = pygame.display.set_mode((700, 500))
@@ -77,6 +79,9 @@ while not done:
     for x in game.dialog_window_stack:
         x.draw(screen)
 
+    for x in menus:
+        x.draw(screen)
+
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -95,9 +100,27 @@ while not done:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                player.move("down")
+                hit = False
+                for x in menus:
+                    if x.visible:
+                        if x.current_selection == (len(x.text) - 1):
+                            pass
+                        else:
+                            x.current_selection += 1
+                        hit = True
+                if not hit:
+                    player.move("down")
             if event.key == pygame.K_UP or event.key == pygame.K_w:
-                player.move("up")
+                hit = False
+                for x in menus:
+                    if x.visible:
+                        if x.current_selection == 0:
+                            pass
+                        else:
+                            x.current_selection -= 1
+                        hit = True
+                if not hit:
+                    player.move("up")
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 player.move("right")
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
@@ -106,6 +129,11 @@ while not done:
                 player.get_inventory()
             if event.key == pygame.K_t:
                 player.check_for_attack()
+            if event.key == pygame.K_f:
+                if TilePy.check_for_open_menu_and_close(menus):
+                    pass
+                else:
+                    menus[0].show()
             if event.key == pygame.K_x:
                 if TilePy.check_for_open_window_and_close(game):
                     pass

@@ -35,6 +35,19 @@ def check_for_open_window_and_close(game):
     return False
 
 
+def check_for_open_menu_and_close(menu):
+    """
+    :param menu: list of game menus.
+    :rtype: Boolean
+    """
+    if len(menu) > 0:
+        if menu[len(menu) - 1].visible:
+            menu[len(menu) - 1].hide()
+            return True
+        return False
+    return False
+
+
 def read_map_file(filename):
     # TODO Test read_map_file.
     """
