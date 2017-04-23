@@ -38,3 +38,27 @@ class Menu(object):
 
     def hide(self):
         self.visible = False
+
+
+def menu_move_down(menus):
+    hit = False
+    for x in menus:
+        if x.visible:
+            if x.current_selection == (len(x.text) - 1):
+                pass
+            else:
+                x.current_selection += 1
+            hit = True
+    return hit
+
+
+def menu_move_up(menus):
+    hit = False
+    for x in menus:
+        if x.visible:
+            if x.current_selection == 0:
+                pass
+            else:
+                x.current_selection -= 1
+            hit = True
+    return hit

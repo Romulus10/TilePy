@@ -4,8 +4,6 @@ import pygame
 
 import TilePy
 
-# import pdb
-
 game = TilePy.begin("Test")
 
 game.maps = [
@@ -100,26 +98,10 @@ while not done:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                hit = False
-                for x in menus:
-                    if x.visible:
-                        if x.current_selection == (len(x.text) - 1):
-                            pass
-                        else:
-                            x.current_selection += 1
-                        hit = True
-                if not hit:
+                if not TilePy.menu_move_down(menus):
                     player.move("down")
             if event.key == pygame.K_UP or event.key == pygame.K_w:
-                hit = False
-                for x in menus:
-                    if x.visible:
-                        if x.current_selection == 0:
-                            pass
-                        else:
-                            x.current_selection -= 1
-                        hit = True
-                if not hit:
+                if not TilePy.menu_move_up(menus):
                     player.move("up")
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 player.move("right")
